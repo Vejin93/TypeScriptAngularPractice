@@ -6,15 +6,20 @@
             <th>Last name</th>
             <th>Email</th>
             <th>Sales volume</th>
+            <th>Met Quota?</th>
         </tr>   
     </thead>
 
     <tbody>
-        <tr *ngFor="let tempSalesPerson of salesPersonList">
+        <tr *ngFor="let tempSalesPerson of salesPersonList" [ngClass]="{'highlight': tempSalesPerson.salesVolume >= 8000}">
             <td>{{tempSalesPerson.firstName}}</td>
             <td>{{tempSalesPerson.lastName}}</td>
             <td>{{tempSalesPerson.email}}</td>
-            <td>{{tempSalesPerson.salesVolume}}</td>
+            <td>{{tempSalesPerson.salesVolume | currency: 'EUR'}}</td>
+            <td>
+                <div *ngIf="tempSalesPerson.salesVolume >= 8000; else myElseBlock">Yes</div>
+                <ng-template #myElseBlock>No</ng-template>
+            </td>
         </tr>
     </tbody>
 
